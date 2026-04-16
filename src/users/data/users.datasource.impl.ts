@@ -9,20 +9,6 @@ import { User } from "../entities/user.entity";
 export class UsersDataSourceImpl implements UsersDataSource {
    api = AxiosInstance;
 
-    async getUsers(clubId: number): Promise<UserResponseDto[]> {
-        try {
-        const rawCall = (await this.api.get(`/users?clubId=${clubId}`));
-        if(rawCall.status !== 200) {
-            throw new Error(`Error fetching users: ${rawCall.statusText}`);
-        }
-        const response: UserResponseDto[] = rawCall.data;
-        return response;
-        } catch (error) {
-            console.error('Error in getUsers:', error);
-            throw error;
-        }
-    }
-
     async getUserById(payload: QueryUserRequestDto): Promise<UserResponseDto> {
         try {
             const rawCall = (await this.api.get(`/users/${payload}`));
@@ -65,18 +51,4 @@ export class UsersDataSourceImpl implements UsersDataSource {
         }
     }
 
-    async deleteUser(payload: QueryUserRequestDto): Promise<UserResponseDto> {
-        try {
-            const rawCall = (await this.api.delete(`/users/${payload.userId}`));
-            if(rawCall.status !== 204) {
-                throw new Error(`Error deleting user with id ${payload.userId}: ${rawCall.statusText}`);
-            }
-            const response: UserResponseDto = rawCall.data;
-            return response;
-
-        } catch (error) {
-            console.error(`Error in deleteUser for id ${payload.userId}:`, error);
-            throw error;
-        }
-    }
 }

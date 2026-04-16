@@ -15,10 +15,6 @@ export class UsersService {
     return this.usersDataSource.createUser(createUserDto);
   }
 
-  findAll(clubId: number) {
-    return this.usersDataSource.getUsers(clubId);
-  }
-
   findOne(payload: QueryUserRequestDto) {
     return this.usersDataSource.getUserById(payload);
   }
@@ -30,7 +26,4 @@ export class UsersService {
     );
   }
 
-  remove(payload: QueryUserRequestDto) {
-    return this.usersDataSource.deleteUser(payload);
-  }
 }

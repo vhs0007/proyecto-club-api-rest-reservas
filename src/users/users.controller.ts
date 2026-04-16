@@ -24,16 +24,6 @@ export class UsersController {
     }
   }
 
-  @Get()
-  @ApiOperation({ summary: 'Obtener todos los usuarios' })
-  findAll(@Query('clubId', ParseIntPipe) clubId: number): Promise<UserResponseDto[]> {
-    try{
-      return this.usersService.findAll(clubId);
-    } catch (error) {
-      throw new InternalServerErrorException(error);
-    }
-  }
-
   @Get(':id')
   @ApiOperation({ summary: 'Obtener usuario por ID' })
   findOne(@Param('id', ParseIntPipe) id: number, @Query('clubId', ParseIntPipe) clubId: number, @Query('typeId', ParseIntPipe) typeId: number): Promise<UserResponseDto> {
@@ -50,16 +40,6 @@ export class UsersController {
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto): Promise<UserResponseDto> {
     try{
       return this.usersService.update({ clubId: updateUserDto.clubId, userId: +id, typeId: updateUserDto.typeId }, updateUserDto);
-    } catch (error) {
-      throw new InternalServerErrorException(error);
-    }
-  }
-
-  @Delete(':id')
-  @ApiOperation({ summary: 'Eliminar usuario' })
-  remove(@Param('id', ParseIntPipe) id: number, @Query('clubId', ParseIntPipe) clubId: number, @Query('typeId', ParseIntPipe) typeId: number): Promise<UserResponseDto> {
-    try{
-      return this.usersService.remove({ clubId, userId: id, typeId });
     } catch (error) {
       throw new InternalServerErrorException(error);
     }
