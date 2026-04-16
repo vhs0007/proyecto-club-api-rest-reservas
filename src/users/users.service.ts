@@ -1,26 +1,36 @@
-import { Injectable } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { Inject, Injectable } from '@nestjs/common';
+import { CreateUserDto } from './dto/request/create-user.request.dto';
+import { UpdateUserDto } from './dto/request/update-user.request.dto';
+import { UsersDataSourceImpl } from './data/users.datasource.impl';
+import { QueryUserRequestDto } from './dto/request/query-user.request.dto';
+
 
 @Injectable()
 export class UsersService {
+  constructor(
+    private readonly usersDataSource: UsersDataSourceImpl,
+  ) {}
+
   create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+    return this.usersDataSource.createUser(createUserDto);
   }
 
-  findAll() {
-    return `This action returns all users`;
+  findAll(clubId: number) {
+    return this.usersDataSource.getUsers(clubId);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  findOne(payload: QueryUserRequestDto) {
+    return this.usersDataSource.getUserById(payload);
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  update(payload: QueryUserRequestDto, updateUserDto: UpdateUserDto) {
+    return this.usersDataSource.updateUser(
+      payload,
+      updateUserDto,
+    );
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  remove(payload: QueryUserRequestDto) {
+    return this.usersDataSource.deleteUser(payload);
   }
 }
