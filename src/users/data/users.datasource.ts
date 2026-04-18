@@ -2,7 +2,6 @@ import { UserResponseDto } from "../dto/response/user.response.dto";
 import { QueryUserRequestDto } from "../dto/request/query-user.request.dto";
 import { CreateUserDto } from "../dto/request/create-user.request.dto";
 import { UpdateUserDto } from "../dto/request/update-user.request.dto";
-import { User } from "../entities/user.entity";
 
 export interface UsersDataSource {
   getUserById(payload: QueryUserRequestDto): Promise<UserResponseDto>;

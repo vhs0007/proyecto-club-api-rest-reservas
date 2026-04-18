@@ -4,14 +4,16 @@ import { CreateUserDto } from "../dto/request/create-user.request.dto";
 import { UsersDataSource } from "./users.datasource";
 import { UpdateUserDto } from "../dto/request/update-user.request.dto";
 import { QueryUserRequestDto } from "../dto/request/query-user.request.dto";
-import { User } from "../entities/user.entity";
 
 export class UsersDataSourceImpl implements UsersDataSource {
    api = AxiosInstance;
 
     async getUserById(payload: QueryUserRequestDto): Promise<UserResponseDto> {
         try {
-            const rawCall = (await this.api.get(`/users/${payload}`));
+            const { userId, clubId, typeId } = payload;
+            const rawCall = await this.api.get(`/users/${userId}`, {
+                params: { clubId, typeId },
+            });
             if(rawCall.status !== 200) {
                 throw new Error(`Error fetching user with id ${payload.userId}: ${rawCall.statusText}`);
             }

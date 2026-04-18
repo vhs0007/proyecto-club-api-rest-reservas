@@ -1,5 +1,5 @@
-import { Facility } from 'src/facilities/entities/facility.entity';
-import { User } from 'src/users/entities/user.entity';
+import { Facility } from '../../facilities/entities/facility.entity';
+import { User } from '../../users/entities/user.entity';
 
 export class Reservation {
   private _id: number;
