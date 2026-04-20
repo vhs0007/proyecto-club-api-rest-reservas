@@ -3,7 +3,7 @@ import * as dotenv from "dotenv";
 
 dotenv.config();
 
-const HARDCODED_BEARER_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjAsImVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzc2NDc4MDQxLCJleHAiOjE3NzY1NjQ0NDF9.16ds9vZmXCgGkQyRG9UcbbXZIkoTcExrS7QTUxexY_Q";
+const HARDCODED_BEARER_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjAsImVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzc2NzEzMzk4LCJleHAiOjE3NzY3OTk3OTh9.Fjd2zK7vZkjLZu0ruhi_QcQX60AJFvpQnQ7tDXufF60";
 
 export const AxiosInstance = axios.create({
     baseURL: process.env.API_URL ?? '',
