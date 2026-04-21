@@ -13,17 +13,17 @@ import {
   ApiBearerAuth,
   ApiQuery,
 } from '@nestjs/swagger';
-import { FacilitiesService } from './facilities.service';
-import { FacilityResponseDto } from './dto/response/facility.response.dto';
+import { MembershipTypeService } from './membership-type.service';
+import { MembershipTypeResponseDto } from './dto/response/membership-type.response.dto';
 
-@ApiTags('Facilities')
+@ApiTags('MembershipType')
 @ApiBearerAuth()
-@Controller('facilities')
-export class FacilitiesController {
-  constructor(private readonly facilitiesService: FacilitiesService) {}
+@Controller('membership-type')
+export class MembershipTypeController {
+  constructor(private readonly membershipTypeService: MembershipTypeService) {}
 
   @Get()
-  @ApiOperation({ summary: 'Listar instalaciones' })
+  @ApiOperation({ summary: 'Listar tipos de membresía' })
   @ApiQuery({
     name: 'clubId',
     type: Number,
@@ -32,16 +32,16 @@ export class FacilitiesController {
   })
   findAll(
     @Query('clubId', ParseIntPipe) clubId: number,
-  ): Promise<FacilityResponseDto[]> {
+  ): Promise<MembershipTypeResponseDto[]> {
     try {
-      return this.facilitiesService.findAll(clubId);
+      return this.membershipTypeService.findAll(clubId);
     } catch (error) {
       throw new InternalServerErrorException(error);
     }
   }
 
   @Get(':id')
-  @ApiOperation({ summary: 'Obtener instalación por ID' })
+  @ApiOperation({ summary: 'Obtener tipo de membresía por ID' })
   @ApiQuery({
     name: 'clubId',
     type: Number,
@@ -51,9 +51,9 @@ export class FacilitiesController {
   findOne(
     @Param('id', ParseIntPipe) id: number,
     @Query('clubId', ParseIntPipe) clubId: number,
-  ): Promise<FacilityResponseDto> {
+  ): Promise<MembershipTypeResponseDto> {
     try {
-      return this.facilitiesService.findOne(id, clubId);
+      return this.membershipTypeService.findOne(id, clubId);
     } catch (error) {
       throw new NotFoundException(error);
     }
