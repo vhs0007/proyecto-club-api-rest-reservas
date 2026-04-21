@@ -1,9 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { FacilitiesController } from './facilities.controller';
-import { FacilitiesService } from './facilities.service';
+import { MembershipTypeController } from './membership-type.controller';
+import { MembershipTypeService } from './membership-type.service';
 
-describe('FacilitiesController', () => {
-  let controller: FacilitiesController;
+describe('MembershipTypeController', () => {
+  let controller: MembershipTypeController;
 
   const mockService = {
     findAll: jest.fn(),
@@ -13,16 +13,16 @@ describe('FacilitiesController', () => {
   beforeEach(async () => {
     jest.clearAllMocks();
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [FacilitiesController],
+      controllers: [MembershipTypeController],
       providers: [
         {
-          provide: FacilitiesService,
+          provide: MembershipTypeService,
           useValue: mockService,
         },
       ],
     }).compile();
 
-    controller = module.get<FacilitiesController>(FacilitiesController);
+    controller = module.get<MembershipTypeController>(MembershipTypeController);
   });
 
   it('should be defined', () => {
