@@ -25,7 +25,7 @@ export class MembershipTypeDataSourceImpl implements MembershipTypeDataSource {
     }
   }
 
-  async getMembershipTypeById(
+  /*async getMembershipTypeById(
     id: number,
     clubId: number,
   ): Promise<MembershipTypeResponseDto> {
@@ -44,5 +44,5 @@ export class MembershipTypeDataSourceImpl implements MembershipTypeDataSource {
       console.error(`Error in getMembershipTypeById for id ${id}:`, error);
       throw error;
     }
-  }
+  }*/
 }

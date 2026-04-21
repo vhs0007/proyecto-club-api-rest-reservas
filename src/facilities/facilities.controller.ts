@@ -53,7 +53,7 @@ export class FacilitiesController {
     @Query('clubId', ParseIntPipe) clubId: number,
   ): Promise<FacilityResponseDto> {
     try {
-      return this.facilitiesService.findOne(id, clubId);
+      return this.facilitiesService.findOne({id: +id, clubId: clubId});
     } catch (error) {
       throw new NotFoundException(error);
     }

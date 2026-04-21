@@ -19,8 +19,8 @@ import {
   ApiQuery,
 } from '@nestjs/swagger';
 import { ReservationsService } from './reservations.service';
-import { CreateReservationDto } from './dto/create-reservation.dto';
-import { UpdateReservationDto } from './dto/update-reservation.dto';
+import { CreateReservationDto } from './dto/request/create-reservation.dto';
+import { UpdateReservationDto } from './dto/request/update-reservation.dto';
 import { ReservationResponseDto } from './dto/response/reservation.response.dto';
 // import { AuthGuard } from '../auth/guards/jwt-auth.guard';
 
@@ -75,7 +75,7 @@ export class ReservationsController {
     @Query('clubId', ParseIntPipe) clubId: number,
   ): Promise<ReservationResponseDto> {
     try {
-      return this.reservationsService.findOne(id, clubId);
+      return this.reservationsService.findOne({id: +id, clubId: clubId});
     } catch (error) {
       throw new NotFoundException(error);
     }
@@ -86,10 +86,11 @@ export class ReservationsController {
   @ApiBody({ type: UpdateReservationDto })
   update(
     @Param('id', ParseIntPipe) id: number,
+    @Query('clubId', ParseIntPipe) clubId: number,
     @Body() updateReservationDto: UpdateReservationDto,
   ): Promise<ReservationResponseDto> {
     try {
-      return this.reservationsService.update(id, updateReservationDto);
+      return this.reservationsService.update({id: +id, clubId: clubId}, updateReservationDto);
     } catch (error) {
       throw new InternalServerErrorException(error);
     }
@@ -97,9 +98,15 @@ export class ReservationsController {
 
   @Delete(':id')
   @ApiOperation({ summary: 'Eliminar reserva' })
-  remove(@Param('id', ParseIntPipe) id: number): Promise<void> {
+  @ApiQuery({
+    name: 'clubId',
+    type: Number,
+    description: 'Id del club',
+    required: true,
+  })
+  remove(@Param('id', ParseIntPipe) id: number, @Query('clubId', ParseIntPipe) clubId: number): Promise<void> {
     try {
-      return this.reservationsService.remove(id);
+      return this.reservationsService.remove({id: +id, clubId: clubId});
     } catch (error) {
       throw new InternalServerErrorException(error);
     }

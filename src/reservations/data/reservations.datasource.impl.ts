@@ -1,6 +1,7 @@
 import { AxiosInstance } from '../../configs/axios/api.config';
-import { CreateReservationDto } from '../dto/create-reservation.dto';
-import { UpdateReservationDto } from '../dto/update-reservation.dto';
+import { CreateReservationDto } from '../dto/request/create-reservation.dto';
+import { QueryReservationRequestDto } from '../dto/request/query-reservation.request.dto';
+import { UpdateReservationDto } from '../dto/request/update-reservation.dto';
 import { ReservationResponseDto } from '../dto/response/reservation.response.dto';
 import { ReservationsDataSource } from './reservations.datasource';
 
@@ -40,10 +41,10 @@ export class ReservationsDataSourceImpl implements ReservationsDataSource {
   }
 
   async getReservationById(
-    id: number,
-    clubId: number,
+    query: QueryReservationRequestDto,
   ): Promise<ReservationResponseDto> {
     try {
+      const { id, clubId } = query;
       const rawCall = await this.api.get(`/activities/${id}`, {
         params: { clubId },
       });
@@ -55,17 +56,20 @@ export class ReservationsDataSourceImpl implements ReservationsDataSource {
       const response: ReservationResponseDto = rawCall.data;
       return response;
     } catch (error) {
-      console.error(`Error in getReservationById for id ${id}:`, error);
+      console.error(`Error in getReservationById for id ${query.id}:`, error);
       throw error;
     }
   }
 
   async updateReservation(
-    id: number,
+    query: QueryReservationRequestDto,
     data: UpdateReservationDto,
   ): Promise<ReservationResponseDto> {
     try {
-      const rawCall = await this.api.patch(`/activities/${id}`, data);
+      const { id, clubId } = query;
+      const rawCall = await this.api.patch(`/activities/${id}`, data, {
+        params: { clubId },
+      });
       if (rawCall.status !== 200) {
         throw new Error(
           `Error updating reservation with id ${id}: ${rawCall.statusText}`,
@@ -74,21 +78,24 @@ export class ReservationsDataSourceImpl implements ReservationsDataSource {
       const response: ReservationResponseDto = rawCall.data;
       return response;
     } catch (error) {
-      console.error(`Error in updateReservation for id ${id}:`, error);
+      console.error(`Error in updateReservation for id ${query.id}:`, error);
       throw error;
     }
   }
 
-  async deleteReservation(id: number): Promise<void> {
+  async deleteReservation(query: QueryReservationRequestDto): Promise<void> {
     try {
-      const rawCall = await this.api.delete(`/activities/${id}`);
+      const { id, clubId } = query;
+      const rawCall = await this.api.delete(`/activities/${id}`, {
+        params: { clubId },
+      });
       if (rawCall.status !== 200 && rawCall.status !== 204) {
         throw new Error(
-          `Error deleting reservation with id ${id}: ${rawCall.statusText}`,
+          `Error deleting reservation with id ${query.id}: ${rawCall.statusText}`,
         );
       }
     } catch (error) {
-      console.error(`Error in deleteReservation for id ${id}:`, error);
+      console.error(`Error in deleteReservation for id ${query.id}:`, error);
       throw error;
     }
   }

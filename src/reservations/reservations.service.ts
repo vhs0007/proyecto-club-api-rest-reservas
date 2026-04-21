@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { CreateReservationDto } from './dto/create-reservation.dto';
-import { UpdateReservationDto } from './dto/update-reservation.dto';
+import { CreateReservationDto } from './dto/request/create-reservation.dto';
+import { UpdateReservationDto } from './dto/request/update-reservation.dto';
 import { ReservationsDataSourceImpl } from './data/reservations.datasource.impl';
 import { ReservationResponseDto } from './dto/response/reservation.response.dto';
+import { QueryReservationRequestDto } from './dto/request/query-reservation.request.dto';
 
 @Injectable()
 export class ReservationsService {
@@ -20,21 +21,21 @@ export class ReservationsService {
     return this.reservationsDataSource.getReservations(clubId);
   }
 
-  findOne(id: number, clubId: number): Promise<ReservationResponseDto> {
-    return this.reservationsDataSource.getReservationById(id, clubId);
+  findOne(query: QueryReservationRequestDto): Promise<ReservationResponseDto> {
+    return this.reservationsDataSource.getReservationById(query);
   }
 
   update(
-    id: number,
+    query: QueryReservationRequestDto,
     updateReservationDto: UpdateReservationDto,
   ): Promise<ReservationResponseDto> {
     return this.reservationsDataSource.updateReservation(
-      id,
+      query,
       updateReservationDto,
     );
   }
 
-  remove(id: number): Promise<void> {
-    return this.reservationsDataSource.deleteReservation(id);
+  remove(query: QueryReservationRequestDto): Promise<void> {
+    return this.reservationsDataSource.deleteReservation(query);
   }
 }

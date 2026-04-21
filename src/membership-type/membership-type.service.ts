@@ -11,8 +11,9 @@ export class MembershipTypeService {
   findAll(clubId: number): Promise<MembershipTypeResponseDto[]> {
     return this.membershipTypeDataSource.getMembershipTypes(clubId);
   }
-
+/*
   findOne(id: number, clubId: number): Promise<MembershipTypeResponseDto> {
     return this.membershipTypeDataSource.getMembershipTypeById(id, clubId);
   }
+*/
 }

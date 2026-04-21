@@ -2,8 +2,9 @@ import { MembershipTypeResponseDto } from '../dto/response/membership-type.respo
 
 export interface MembershipTypeDataSource {
   getMembershipTypes(clubId: number): Promise<MembershipTypeResponseDto[]>;
-  getMembershipTypeById(
+  /*getMembershipTypeById(
     id: number,
     clubId: number,
   ): Promise<MembershipTypeResponseDto>;
+  */
 }

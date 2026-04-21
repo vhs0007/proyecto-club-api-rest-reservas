@@ -40,7 +40,7 @@ export class MembershipTypeController {
     }
   }
 
-  @Get(':id')
+  /*@Get(':id')
   @ApiOperation({ summary: 'Obtener tipo de membresía por ID' })
   @ApiQuery({
     name: 'clubId',
@@ -57,5 +57,5 @@ export class MembershipTypeController {
     } catch (error) {
       throw new NotFoundException(error);
     }
-  }
+  }*/
 }
