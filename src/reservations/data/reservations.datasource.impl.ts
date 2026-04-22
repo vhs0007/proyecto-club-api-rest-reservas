@@ -3,10 +3,23 @@ import { CreateReservationDto } from '../dto/request/create-reservation.dto';
 import { QueryReservationRequestDto } from '../dto/request/query-reservation.request.dto';
 import { UpdateReservationDto } from '../dto/request/update-reservation.dto';
 import { ReservationResponseDto } from '../dto/response/reservation.response.dto';
+import { ReservationsNavigation } from '../../navigation/reservations.navigation';
 import { ReservationsDataSource } from './reservations.datasource';
 
 export class ReservationsDataSourceImpl implements ReservationsDataSource {
   api = AxiosInstance;
+
+  private toReservationResponseDto(
+    reservation: ReservationsNavigation,
+  ): ReservationResponseDto {
+    return {
+      ...reservation,
+      userId: reservation.user?.id ?? 0,
+      facilityId: reservation.facility?.id ?? 0,
+      clubId: reservation.facility?.clubId ?? 0,
+      userTypeId: reservation.user?.type?.id ?? 0,
+    };
+  }
 
   async createReservation(
     data: CreateReservationDto,
@@ -16,8 +29,8 @@ export class ReservationsDataSourceImpl implements ReservationsDataSource {
       if (rawCall.status !== 201) {
         throw new Error(`Error creating reservation: ${rawCall.statusText}`);
       }
-      const response: ReservationResponseDto = rawCall.data;
-      return response;
+      const response: ReservationsNavigation = rawCall.data;
+      return this.toReservationResponseDto(response);
     } catch (error) {
       console.error('Error in createReservation:', error);
       throw error;
@@ -32,8 +45,10 @@ export class ReservationsDataSourceImpl implements ReservationsDataSource {
       if (rawCall.status !== 200) {
         throw new Error(`Error fetching reservations: ${rawCall.statusText}`);
       }
-      const response: ReservationResponseDto[] = rawCall.data;
-      return response;
+      const response: ReservationsNavigation[] = rawCall.data;
+      return response.map((reservation) =>
+        this.toReservationResponseDto(reservation),
+      );
     } catch (error) {
       console.error('Error in getReservations:', error);
       throw error;
@@ -53,8 +68,8 @@ export class ReservationsDataSourceImpl implements ReservationsDataSource {
           `Error fetching reservation with id ${id}: ${rawCall.statusText}`,
         );
       }
-      const response: ReservationResponseDto = rawCall.data;
-      return response;
+      const response: ReservationsNavigation = rawCall.data;
+      return this.toReservationResponseDto(response);
     } catch (error) {
       console.error(`Error in getReservationById for id ${query.id}:`, error);
       throw error;
@@ -75,8 +90,8 @@ export class ReservationsDataSourceImpl implements ReservationsDataSource {
           `Error updating reservation with id ${id}: ${rawCall.statusText}`,
         );
       }
-      const response: ReservationResponseDto = rawCall.data;
-      return response;
+      const response: ReservationsNavigation = rawCall.data;
+      return this.toReservationResponseDto(response);
     } catch (error) {
       console.error(`Error in updateReservation for id ${query.id}:`, error);
       throw error;

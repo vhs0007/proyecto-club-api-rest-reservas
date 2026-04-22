@@ -7,9 +7,9 @@ import {
   IsString,
   Min,
 } from 'class-validator';
-import { UserResponseDto } from '../../../users/dto/response/user.response.dto';
 import type { ReservationResponseDto } from '../../../reservations/dto/response/reservation.response.dto';
-import { MembershipTypeResponseDto } from '../../../membership-type/dto/response/membership-type.response.dto';
+import { MembershipTypeNavigation } from '../../../navigation/membership-type.navigation';
+import type { UserNavigation } from '../../../navigation/user.navigation';
 
 export class FacilityResponseDto {
   @ApiProperty({ example: 1, description: 'ID de la instalación' })
@@ -39,14 +39,14 @@ export class FacilityResponseDto {
     description: 'Trabajador responsable si el upstream lo incluye',
   })
   @IsOptional()
-  responsibleWorker?: UserResponseDto;
+  responsibleWorker?: UserNavigation;
 
   @ApiProperty({
     required: false,
     description: 'Trabajador asistente si el upstream lo incluye',
   })
   @IsOptional()
-  assistantWorker?: UserResponseDto | null;
+  assistantWorker?: UserNavigation | null;
 
   @ApiProperty({
     required: false,
@@ -64,5 +64,5 @@ export class FacilityResponseDto {
   })
   @IsOptional()
   @IsArray()
-  membershipTypes?: MembershipTypeResponseDto[];
+  membershipTypes?: MembershipTypeNavigation[];
 }
