@@ -7,8 +7,8 @@ import {
   IsString,
   Min,
 } from 'class-validator';
-import type { UserResponseDto } from '../../../users/dto/response/user.response.dto';
-import type { FacilityResponseDto } from '../../../facilities/dto/response/facility.response.dto';
+import type { FacilityNavigation } from '../../../navigation/facility.navigation';
+import type { UserNavigation } from '../../../navigation/user.navigation';
 
 export class ReservationResponseDto {
   @ApiProperty({ example: 1, description: 'ID de la reserva' })
@@ -68,9 +68,9 @@ export class ReservationResponseDto {
 
   @ApiProperty({ required: false, description: 'Objeto usuario si el upstream lo incluye' })
   @IsOptional()
-  user?: UserResponseDto;
+  user?: UserNavigation;
 
   @ApiProperty({ required: false, description: 'Objeto instalación si el upstream lo incluye' })
   @IsOptional()
-  facility?: FacilityResponseDto;
+  facility?: FacilityNavigation;
 }
