@@ -104,7 +104,7 @@ export class ReservationsController {
     description: 'Id del club',
     required: true,
   })
-  remove(@Param('id', ParseIntPipe) id: number, @Query('clubId', ParseIntPipe) clubId: number): Promise<void> {
+  remove(@Param('id', ParseIntPipe) id: number, @Query('clubId', ParseIntPipe) clubId: number): Promise<ReservationResponseDto> {
     try {
       return this.reservationsService.remove({id: +id, clubId: clubId});
     } catch (error) {

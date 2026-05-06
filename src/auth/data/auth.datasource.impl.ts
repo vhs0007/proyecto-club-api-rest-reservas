@@ -22,7 +22,8 @@ export class AuthDataSourceImpl implements AuthDataSource {
                 userId: d.userId,
                 email: d.email,
                 document: d.document,
-                type: d.type,
+                userTypeId: d.userTypeId,
+                membershipTypeId: d.membershipTypeId,
             };
         } catch (error) {
             console.error('Error in login:', error);

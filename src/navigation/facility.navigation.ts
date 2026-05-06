@@ -8,6 +8,6 @@ export interface FacilityNavigation {
   capacity: number;
   isActive: boolean;
   responsibleWorker: UserNavigation | null;
-  assistantWorker: UserNavigation | null;
+  assistantWorkers: UserNavigation[] | null;
   membershipTypes?: MembershipTypeNavigation[];
 }

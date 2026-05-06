@@ -43,10 +43,12 @@ export class FacilityResponseDto {
 
   @ApiProperty({
     required: false,
-    description: 'Trabajador asistente si el upstream lo incluye',
+    description: 'Trabajadores asistentes si el upstream los incluye',
+    type: 'array',
   })
   @IsOptional()
-  assistantWorker?: UserNavigation | null;
+  @IsArray()
+  assistantWorkers?: UserNavigation[] | null;
 
   @ApiProperty({
     required: false,

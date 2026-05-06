@@ -35,7 +35,7 @@ export class ReservationsService {
     );
   }
 
-  remove(query: QueryReservationRequestDto): Promise<void> {
+  remove(query: QueryReservationRequestDto): Promise<ReservationResponseDto> {
     return this.reservationsDataSource.deleteReservation(query);
   }
 }

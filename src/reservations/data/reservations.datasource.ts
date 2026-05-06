@@ -11,5 +11,5 @@ export interface ReservationsDataSource {
     query: QueryReservationRequestDto,
     updateReservationDto: UpdateReservationDto,
   ): Promise<ReservationResponseDto>;
-  deleteReservation(query: QueryReservationRequestDto): Promise<void>;
+  deleteReservation(query: QueryReservationRequestDto): Promise<ReservationResponseDto>;
 }
