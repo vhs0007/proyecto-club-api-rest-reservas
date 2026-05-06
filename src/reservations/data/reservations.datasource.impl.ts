@@ -98,7 +98,7 @@ export class ReservationsDataSourceImpl implements ReservationsDataSource {
     }
   }
 
-  async deleteReservation(query: QueryReservationRequestDto): Promise<void> {
+  async deleteReservation(query: QueryReservationRequestDto): Promise<ReservationResponseDto> {
     try {
       const { id, clubId } = query;
       const rawCall = await this.api.delete(`/activities/${id}`, {
@@ -109,6 +109,13 @@ export class ReservationsDataSourceImpl implements ReservationsDataSource {
           `Error deleting reservation with id ${query.id}: ${rawCall.statusText}`,
         );
       }
+      if (!rawCall.data) {
+        throw new Error(
+          `Delete reservation upstream returned no body for id ${query.id}`,
+        );
+      }
+      const response: ReservationsNavigation = rawCall.data;
+      return this.toReservationResponseDto(response);
     } catch (error) {
       console.error(`Error in deleteReservation for id ${query.id}:`, error);
       throw error;
