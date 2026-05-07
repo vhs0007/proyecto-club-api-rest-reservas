@@ -1,17 +1,15 @@
 import { ApiProperty } from '@nestjs/swagger';
-import {
-  IsNumber,
-  IsOptional,
-  IsString,
-  Min,
-} from 'class-validator';
+import { IsNumber, IsOptional, IsString, Min } from 'class-validator';
 
 export class MembershipTypeResponseDto {
   @ApiProperty({ example: 1, description: 'ID del tipo de membresía' })
   @IsNumber({}, { message: 'id debe ser un número' })
   id: number;
 
-  @ApiProperty({ example: 'Premium', description: 'Nombre del tipo de membresía' })
+  @ApiProperty({
+    example: 'Premium',
+    description: 'Nombre del tipo de membresía',
+  })
   @IsString({ message: 'name debe ser un texto' })
   name: string;
 

@@ -5,17 +5,16 @@ import { AuthDataSourceImpl } from './data/auth.datasource.impl';
 
 @Injectable()
 export class AuthService {
+  constructor(private readonly authDataSource: AuthDataSourceImpl) {
+    this.authDataSource = authDataSource;
+  }
 
-    constructor(private readonly authDataSource: AuthDataSourceImpl) {
-        this.authDataSource = authDataSource;
+  authenticateUser(payload: LoginRequestDto): Promise<LoginResponse> {
+    try {
+      return this.authDataSource.login(payload);
+    } catch (error) {
+      console.error('Error in authenticateUser:', error);
+      throw new InternalServerErrorException(error);
     }
-
-    authenticateUser(payload: LoginRequestDto): Promise<LoginResponse> {
-        try {
-            return this.authDataSource.login(payload);
-        } catch (error) {
-            console.error('Error in authenticateUser:', error);
-            throw new InternalServerErrorException(error);
-        }
-    }
+  }
 }

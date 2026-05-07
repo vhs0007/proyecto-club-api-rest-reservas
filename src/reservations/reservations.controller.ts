@@ -75,7 +75,7 @@ export class ReservationsController {
     @Query('clubId', ParseIntPipe) clubId: number,
   ): Promise<ReservationResponseDto> {
     try {
-      return this.reservationsService.findOne({id: +id, clubId: clubId});
+      return this.reservationsService.findOne({ id: +id, clubId: clubId });
     } catch (error) {
       throw new NotFoundException(error);
     }
@@ -90,7 +90,10 @@ export class ReservationsController {
     @Body() updateReservationDto: UpdateReservationDto,
   ): Promise<ReservationResponseDto> {
     try {
-      return this.reservationsService.update({id: +id, clubId: clubId}, updateReservationDto);
+      return this.reservationsService.update(
+        { id: +id, clubId: clubId },
+        updateReservationDto,
+      );
     } catch (error) {
       throw new InternalServerErrorException(error);
     }
@@ -104,9 +107,12 @@ export class ReservationsController {
     description: 'Id del club',
     required: true,
   })
-  remove(@Param('id', ParseIntPipe) id: number, @Query('clubId', ParseIntPipe) clubId: number): Promise<ReservationResponseDto> {
+  remove(
+    @Param('id', ParseIntPipe) id: number,
+    @Query('clubId', ParseIntPipe) clubId: number,
+  ): Promise<ReservationResponseDto> {
     try {
-      return this.reservationsService.remove({id: +id, clubId: clubId});
+      return this.reservationsService.remove({ id: +id, clubId: clubId });
     } catch (error) {
       throw new InternalServerErrorException(error);
     }

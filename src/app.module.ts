@@ -8,7 +8,13 @@ import { UsersModule } from './users/users.module';
 import { MembershipTypeModule } from './membership-type/membership-type.module';
 
 @Module({
-  imports: [ReservationsModule, AuthModule, FacilitiesModule, UsersModule, MembershipTypeModule],
+  imports: [
+    ReservationsModule,
+    AuthModule,
+    FacilitiesModule,
+    UsersModule,
+    MembershipTypeModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
