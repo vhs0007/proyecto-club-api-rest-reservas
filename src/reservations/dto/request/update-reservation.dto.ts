@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsNumber, IsOptional, IsBoolean, Min, Matches } from 'class-validator';
+import { IsString, IsNumber, IsOptional, IsBoolean, Min, IsDateString, Matches } from 'class-validator';
 
 export class UpdateReservationDto {
   @ApiProperty({ example: 'Partido de fútbol', required: false })
@@ -52,8 +52,9 @@ export class UpdateReservationDto {
   @IsString({ message: 'date debe ser un texto' })
   date: string;
 
-  @ApiProperty({ example: 1, description: 'Id del tipo de usuario' })
+  @ApiProperty({ example: 1, description: 'Id del tipo de usuario', required: false })
+  @IsOptional()
   @IsNumber({}, { message: 'userTypeId debe ser un número' })
   @Min(1, { message: 'userTypeId debe ser al menos 1' })
-  userTypeId: number;
+  userTypeId?: number;
 }

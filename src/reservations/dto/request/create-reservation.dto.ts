@@ -1,8 +1,19 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsNumber, IsOptional, IsBoolean, Min, IsDate, Matches } from 'class-validator';
+import {
+  IsString,
+  IsNumber,
+  IsOptional,
+  IsBoolean,
+  Min,
+  IsDateString,
+  Matches,
+} from 'class-validator';
 
 export class CreateReservationDto {
-  @ApiProperty({ example: 'Partido de fútbol', description: 'Nombre de la actividad' })
+  @ApiProperty({
+    example: 'Partido de fútbol',
+    description: 'Nombre de la actividad',
+  })
   @IsString({ message: 'name debe ser un texto' })
   name: string;
 
@@ -12,12 +23,16 @@ export class CreateReservationDto {
 
   @ApiProperty({ example: '12:00', description: 'Hora de fin (HH:mm, 24h)' })
   @IsString({ message: 'hourEnd debe ser un texto' })
-  @Matches(/^([01]\d|2[0-3]):([0-5]\d)$/, { message: 'hourEnd debe tener formato HH:mm' })
+  @Matches(/^([01]\d|2[0-3]):([0-5]\d)$/, {
+    message: 'hourEnd debe tener formato HH:mm',
+  })
   hourEnd: string;
 
   @ApiProperty({ example: '10:00', description: 'Hora de inicio (HH:mm, 24h)' })
   @IsString({ message: 'hourStart debe ser un texto' })
-  @Matches(/^([01]\d|2[0-3]):([0-5]\d)$/, { message: 'hourStart debe tener formato HH:mm' })
+  @Matches(/^([01]\d|2[0-3]):([0-5]\d)$/, {
+    message: 'hourStart debe tener formato HH:mm',
+  })
   hourStart: string;
 
   @ApiProperty({ example: 1, description: 'Id del usuario' })
@@ -45,12 +60,20 @@ export class CreateReservationDto {
   @Min(1, { message: 'clubId debe ser al menos 1' })
   clubId: number;
 
-  @ApiProperty({ example: '2026-03-03', description: 'Fecha de la actividad' })
-  @IsDate({ message: 'date debe ser una fecha válida' })
-  date: Date;
-  
-  @ApiProperty({ example: 1, description: 'Id del tipo de usuario' })
+  @ApiProperty({
+    example: '2026-03-03',
+    description: 'Fecha de la actividad en formato ISO-8601',
+  })
+  @IsDateString({}, { message: 'date debe tener formato de fecha ISO válido' })
+  date: string;
+
+  @ApiProperty({
+    example: 1,
+    description: 'Id del tipo de usuario',
+    required: false,
+  })
+  @IsOptional()
   @IsNumber({}, { message: 'userTypeId debe ser un número' })
   @Min(1, { message: 'userTypeId debe ser al menos 1' })
-  userTypeId: number;
+  userTypeId?: number;
 }

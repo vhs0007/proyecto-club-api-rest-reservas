@@ -12,7 +12,6 @@ import {
   ValidateNested,
 } from 'class-validator';
 
-
 export class UserResponseDto {
   @ApiProperty({ example: 1, description: 'ID del usuario' })
   @IsNumber({}, { message: 'id debe ser un número' })
@@ -36,7 +35,7 @@ export class UserResponseDto {
   @ApiProperty({ required: true })
   @IsString({ message: 'document debe ser un texto' })
   document: string;
-  
+
   @ApiProperty({ required: false })
   @IsOptional()
   @IsString({ message: 'email debe ser un texto' })
@@ -49,12 +48,18 @@ export class UserResponseDto {
 
   @ApiProperty({ required: false })
   @IsOptional()
-  @IsDateString({}, { message: 'createdAt debe ser una fecha válida en formato ISO' })
+  @IsDateString(
+    {},
+    { message: 'createdAt debe ser una fecha válida en formato ISO' },
+  )
   createdAt?: Date;
 
   @ApiProperty({ required: false })
   @IsOptional()
-  @IsDateString({}, { message: 'deletedAt debe ser una fecha válida en formato ISO' })
+  @IsDateString(
+    {},
+    { message: 'deletedAt debe ser una fecha válida en formato ISO' },
+  )
   deletedAt?: Date | null;
 
   @ApiProperty({ example: true })

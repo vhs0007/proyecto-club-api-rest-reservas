@@ -66,11 +66,17 @@ export class ReservationResponseDto {
   @IsDate({ message: 'date debe ser una fecha válida' })
   date?: Date;
 
-  @ApiProperty({ required: false, description: 'Objeto usuario si el upstream lo incluye' })
+  @ApiProperty({
+    required: false,
+    description: 'Objeto usuario si el upstream lo incluye',
+  })
   @IsOptional()
   user?: UserNavigation;
 
-  @ApiProperty({ required: false, description: 'Objeto instalación si el upstream lo incluye' })
+  @ApiProperty({
+    required: false,
+    description: 'Objeto instalación si el upstream lo incluye',
+  })
   @IsOptional()
   facility?: FacilityNavigation;
 }

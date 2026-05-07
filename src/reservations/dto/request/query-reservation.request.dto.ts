@@ -1,5 +1,5 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { IsNumber, Min } from "class-validator";
+import { ApiProperty } from '@nestjs/swagger';
+import { IsNumber, Min } from 'class-validator';
 
 export class QueryReservationRequestDto {
   @ApiProperty({ example: 1, description: 'Id del club' })
@@ -8,7 +8,7 @@ export class QueryReservationRequestDto {
   clubId: number;
 
   @ApiProperty({ example: 1, description: 'Id de la reserva' })
-  @IsNumber({}, { message: 'Id debe ser un número' })
-  @Min(1, { message: 'Id debe ser al menos 1' })
+  @IsNumber({}, { message: 'id debe ser un número' })
+  @Min(1, { message: 'id debe ser al menos 1' })
   id: number;
 }

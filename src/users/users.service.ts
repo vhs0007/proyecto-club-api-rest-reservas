@@ -4,12 +4,9 @@ import { UpdateUserDto } from './dto/request/update-user.request.dto';
 import { UsersDataSourceImpl } from './data/users.datasource.impl';
 import { QueryUserRequestDto } from './dto/request/query-user.request.dto';
 
-
 @Injectable()
 export class UsersService {
-  constructor(
-    private readonly usersDataSource: UsersDataSourceImpl,
-  ) {}
+  constructor(private readonly usersDataSource: UsersDataSourceImpl) {}
 
   create(createUserDto: CreateUserDto) {
     return this.usersDataSource.createUser(createUserDto);
@@ -20,10 +17,6 @@ export class UsersService {
   }
 
   update(payload: QueryUserRequestDto, updateUserDto: UpdateUserDto) {
-    return this.usersDataSource.updateUser(
-      payload,
-      updateUserDto,
-    );
+    return this.usersDataSource.updateUser(payload, updateUserDto);
   }
-
 }

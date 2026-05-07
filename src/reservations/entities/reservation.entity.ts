@@ -91,7 +91,7 @@ export class Reservation {
 
   get date(): Date {
     return this._date;
-  } 
+  }
   set date(value: Date) {
     this._date = value;
   }

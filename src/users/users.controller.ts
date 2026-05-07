@@ -1,4 +1,17 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, NotFoundException, InternalServerErrorException, Query, ParseIntPipe } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+  NotFoundException,
+  InternalServerErrorException,
+  Query,
+  ParseIntPipe,
+} from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiBearerAuth, ApiBody } from '@nestjs/swagger';
 import { UsersService } from './users.service';
 import { UserResponseDto } from './dto/response/user.response.dto';
@@ -17,7 +30,7 @@ export class UsersController {
   @ApiOperation({ summary: 'Crear usuario' })
   @ApiBody({ type: CreateUserDto })
   create(@Body() createUserDto: CreateUserDto): Promise<UserResponseDto> {
-    try{
+    try {
       return this.usersService.create(createUserDto);
     } catch (error) {
       throw new InternalServerErrorException(error);
@@ -26,8 +39,12 @@ export class UsersController {
 
   @Get(':id')
   @ApiOperation({ summary: 'Obtener usuario por ID' })
-  findOne(@Param('id', ParseIntPipe) id: number, @Query('clubId', ParseIntPipe) clubId: number, @Query('typeId', ParseIntPipe) typeId: number): Promise<UserResponseDto> {
-    try{
+  findOne(
+    @Param('id', ParseIntPipe) id: number,
+    @Query('clubId', ParseIntPipe) clubId: number,
+    @Query('typeId', ParseIntPipe) typeId: number,
+  ): Promise<UserResponseDto> {
+    try {
       return this.usersService.findOne({ clubId, userId: id, typeId });
     } catch (error) {
       throw new NotFoundException(error);
@@ -37,9 +54,19 @@ export class UsersController {
   @Patch(':id')
   @ApiOperation({ summary: 'Actualizar usuario' })
   @ApiBody({ type: UpdateUserDto })
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto): Promise<UserResponseDto> {
-    try{
-      return this.usersService.update({ clubId: updateUserDto.clubId, userId: +id, typeId: updateUserDto.typeId }, updateUserDto);
+  update(
+    @Param('id') id: string,
+    @Body() updateUserDto: UpdateUserDto,
+  ): Promise<UserResponseDto> {
+    try {
+      return this.usersService.update(
+        {
+          clubId: updateUserDto.clubId,
+          userId: +id,
+          typeId: updateUserDto.typeId,
+        },
+        updateUserDto,
+      );
     } catch (error) {
       throw new InternalServerErrorException(error);
     }

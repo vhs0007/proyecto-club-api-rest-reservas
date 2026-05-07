@@ -7,7 +7,9 @@ import { FacilitiesDataSource } from './facilities.datasource';
 export class FacilitiesDataSourceImpl implements FacilitiesDataSource {
   api = AxiosInstance;
 
-  private toFacilityResponseDto(facility: FacilityNavigation): FacilityResponseDto {
+  private toFacilityResponseDto(
+    facility: FacilityNavigation,
+  ): FacilityResponseDto {
     return {
       ...facility,
     };

@@ -3,5 +3,7 @@ import { QueryFacilitiesRequestDto } from '../dto/request/query-facilities.reque
 
 export interface FacilitiesDataSource {
   getFacilities(clubId: number): Promise<FacilityResponseDto[]>;
-  getFacilityById(query: QueryFacilitiesRequestDto): Promise<FacilityResponseDto>;
+  getFacilityById(
+    query: QueryFacilitiesRequestDto,
+  ): Promise<FacilityResponseDto>;
 }

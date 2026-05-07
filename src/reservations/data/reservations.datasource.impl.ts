@@ -111,7 +111,7 @@ export class ReservationsDataSourceImpl implements ReservationsDataSource {
       }
       if (!rawCall.data) {
         throw new Error(
-          `Delete reservation upstream returned no body for id ${query.id}`,
+          `Error no devolvio datos de la reserva ${query.id}`,
         );
       }
       const response: ReservationsNavigation = rawCall.data;
