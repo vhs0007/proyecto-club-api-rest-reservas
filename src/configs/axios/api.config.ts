@@ -1,10 +1,8 @@
 import axios, { AxiosHeaders } from 'axios';
 import * as dotenv from 'dotenv';
+import { getToken } from '../auth-context/auth-context';
 
 dotenv.config();
-
-const HARDCODED_BEARER_TOKEN =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjAsImVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzc2ODc3Njc2LCJleHAiOjE3NzY5NjQwNzZ9.ybkWYDD6rcEFdxLUyFTJZXM3UcCZ_1o9jk2_H42btts';
 
 export const AxiosInstance = axios.create({
   baseURL: process.env.API_URL ?? '',
@@ -14,8 +12,11 @@ export const AxiosInstance = axios.create({
 });
 
 AxiosInstance.interceptors.request.use((config) => {
-  const headers = AxiosHeaders.from(config.headers ?? {});
-  headers.set('Authorization', `Bearer ${HARDCODED_BEARER_TOKEN}`);
-  config.headers = headers;
+  const token = getToken();
+  if (token) {
+    const headers = AxiosHeaders.from(config.headers ?? {});
+    headers.set('Authorization', `Bearer ${token}`);
+    config.headers = headers;
+  }
   return config;
 });
